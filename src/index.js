@@ -9,8 +9,7 @@ const morgan = require('morgan'); // librairie permettant d'ajouter des logins a
 
 // Dépendances relatives à la bdd mongo
 const {startDatabase} = require('./database/mongo');
-const {insertBeer, getBeers} = require('./database/beers');
-const {deleteBeer, updateBeer} = require('./database/beers');
+const {insertBeer, getBeers, deleteBeer, updateBeer} = require('./database/beers');
 
 // Définition de l'app express
 const app = express();

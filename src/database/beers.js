@@ -1,7 +1,7 @@
 // ./src/database/beers.js
 const {getDatabase} = require('./mongo');
 
-const collectionName = 'beers';
+const collectionName = 'beer';
 const {ObjectID} = require('mongodb');
 
 async function insertBeer(beer) {
