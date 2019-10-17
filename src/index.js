@@ -9,7 +9,7 @@ const morgan = require('morgan'); // librairie permettant d'ajouter des logins a
 
 // Dépendances relatives à la bdd
 const {startDatabase} = require('./database/mysql');
-const {insertBeer, getBeers, deleteBeer, updateBeer, getBeer} = require('./database/beers');
+const {insertBeer, getBeers, deleteBeer, updateBeer,/* getBeer*/} = require('./database/beers');
 
 // Définition de l'app express
 const app = express();
@@ -29,11 +29,16 @@ app.get('/', async (req, res) => {
 var idbeer;
 
 // On retourne une seule bière
-app.get('/beer/:idbeer', async (req, res) => {
+app.route('/beer/:idbeer')
+  .get( async function(req,res) {
     var idbeer = req.params.idbeer;
-      res.send(await getBeer(idbeer));
+    var final = await getBeer(idbeer);
+    console.log(final);
+      //res.send(JSON.stringify(rows[0]));
+  })
+  .delete(async function(req,res) {
+    res.send('Delete : beer')
   });
-
 
 
 /*

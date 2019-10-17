@@ -15,8 +15,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.21.1",
-    "mongodb": "^3.3.2",
-    "mongodb-memory-server": "^5.2.8",
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.3"
