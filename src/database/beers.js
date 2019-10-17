@@ -21,6 +21,19 @@ async function getBeers() {
     });
 }
 
+
+async function getBeer(BeerId) {
+  const database = await getDatabase();
+  console.log(BeerId)
+  database.query('SELECT * FROM ' + collectionName + ' WHERE beer_id = ' + BeerId,  function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    //res.send(JSON.stringify(result[0]));
+    });
+}
+
+
+
 async function deleteBeer(id) {
   const database = await getDatabase();
   await database.collection(collectionName).deleteOne({
@@ -46,4 +59,5 @@ module.exports = {
   getBeers,
   deleteBeer,
   updateBeer,
+  getBeer,
 };

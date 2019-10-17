@@ -7,17 +7,13 @@ const cors = require('cors'); // Cors : Cross-Origin ressource sharing
 const helmet = require('helmet'); // Sécurisation des API express
 const morgan = require('morgan'); // librairie permettant d'ajouter des logins aux api express
 
-// Dépendances relatives à la bdd mongo
+// Dépendances relatives à la bdd
 const {startDatabase} = require('./database/mysql');
-const {insertBeer, getBeers, deleteBeer, updateBeer} = require('./database/beers');
+const {insertBeer, getBeers, deleteBeer, updateBeer, getBeer} = require('./database/beers');
 
 // Définition de l'app express
 const app = express();
 
-// Solution temporaire deBDD Avant d'en créer une + grde
-const beers = [
-  { title : 'Love Is Ale We Need (always!)'}
-];
 
 // On ajoute les Dépendances
 app.use(helmet());
@@ -29,6 +25,16 @@ app.use(morgan('combined'));
 app.get('/', async (req, res) => {
   res.send(await getBeers());
 });
+
+var idbeer;
+
+// On retourne une seule bière
+app.get('/beer/:idbeer', async (req, res) => {
+    var idbeer = req.params.idbeer;
+      res.send(await getBeer(idbeer));
+  });
+
+
 
 /*
 app.post('/', async (req, res) => {
@@ -52,16 +58,9 @@ app.put('/:id', async (req, res) => {
 
 
 
-// start the in-memory MongoDB instance
+// Démarrage du serveur
 startDatabase().then(async () => {
-  // start the server
   app.listen(3001, async () => {
     console.log('listening on port 3001');
   });
 });
-
-
-// Démarrage du serveur
-/*app.listen(3001, () => {
-  console.log('écoute sur le port 3001');
-});*/
