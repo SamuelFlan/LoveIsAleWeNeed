@@ -1,13 +1,13 @@
 // ./src/database/mysql.js
 
-var connection  = require('./db');
+var connection  = require('./DAL_breweriesdb');
 var mysql = require('mysql');
 
 let database = null;
 
 async function startDatabase() {
 
-  database = mysql.createConnection({
+  database = mysql.createConnection({ // A remplacer par le DAL
   host: "localhost",
   user: "root",
   password: "root",
@@ -18,7 +18,6 @@ async function startDatabase() {
 
 
 async function getDatabase() {
-  //if (!database) await startDatabase();
   return database;
 }
 

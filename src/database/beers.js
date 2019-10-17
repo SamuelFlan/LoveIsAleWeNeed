@@ -1,14 +1,15 @@
 // ./src/database/beers.js
+// Accès aux bières
+
 const {getDatabase} = require('./mysql');
 
 const collectionName = 'beer';
 const {ObjectID} = require('mysql');
 
-async function insertBeer(beer) {
+async function insertBeer(beerName, idBeerType) {
   const database = await getDatabase();
-  database.query('SELECT * FROM beer',  function (err, result, fields) {
+  database.query('INSERT INTO '+collectionName+' VALUES',  function (err, result, fields) {
     if (err) throw err;
-    result.send(JSON.stringify(fields[0]));
     });
 }
 
@@ -28,16 +29,14 @@ async function getBeer(BeerId) {
   database.query('SELECT * FROM ' + collectionName + ' WHERE beer_id = ' + BeerId,  function (err, result, fields) {
     if (err) throw err;
     console.log(result);
-    //res.send(JSON.stringify(result[0]));
     });
 }
 
-
-
 async function deleteBeer(id) {
   const database = await getDatabase();
-  await database.collection(collectionName).deleteOne({
-    _id: new ObjectID(id),
+  database.query('DELETE FROM ' + collectionName + ' WHERE beer_id = ' + id,  function (err, result, fields) {
+    if (err) throw err;
+    console.log("Bière numéro " + id + " supprimée.");
   });
 }
 
