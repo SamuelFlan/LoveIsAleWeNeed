@@ -1,19 +1,26 @@
 // ./src/database/beers.js
-const {getDatabase} = require('./mongo');
+const {getDatabase} = require('./mysql');
 
 const collectionName = 'beer';
-const {ObjectID} = require('mongodb');
+const {ObjectID} = require('mysql');
 
 async function insertBeer(beer) {
   const database = await getDatabase();
-  const {insertedId} = await database.collection(collectionName).insertOne(beer);
-  return insertedId;
+  database.query('SELECT * FROM beer',  function (err, result, fields) {
+    if (err) throw err;
+    result.send(JSON.stringify(fields[0]));
+    });
 }
 
 async function getBeers() {
   const database = await getDatabase();
-  return await database.collection(collectionName).find({}).toArray();
+  database.query('SELECT * FROM ' + collectionName,  function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    //res.send(JSON.stringify(result[0]));
+    });
 }
+
 async function deleteBeer(id) {
   const database = await getDatabase();
   await database.collection(collectionName).deleteOne({

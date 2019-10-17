@@ -8,7 +8,7 @@ const helmet = require('helmet'); // Sécurisation des API express
 const morgan = require('morgan'); // librairie permettant d'ajouter des logins aux api express
 
 // Dépendances relatives à la bdd mongo
-const {startDatabase} = require('./database/mongo');
+const {startDatabase} = require('./database/mysql');
 const {insertBeer, getBeers, deleteBeer, updateBeer} = require('./database/beers');
 
 // Définition de l'app express
@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
   res.send(await getBeers());
 });
 
-
+/*
 app.post('/', async (req, res) => {
   const newBeer = req.body;
   await insertBeer(newBeer);
@@ -48,14 +48,12 @@ app.put('/:id', async (req, res) => {
   const updatedBeer = req.body;
   await updateBeer(req.params.id, updatedBeer);
   res.send({ message: 'Beer updated.' });
-});
+});*/
 
 
 
 // start the in-memory MongoDB instance
 startDatabase().then(async () => {
-  await insertBeer({title: 'Hello, now from the in-memory database!'});
-
   // start the server
   app.listen(3001, async () => {
     console.log('listening on port 3001');
