@@ -9,7 +9,7 @@ const morgan = require('morgan'); // librairie permettant d'ajouter des logins a
 
 // Dépendances relatives à la bdd
 const {startDatabase} = require('./database/mysql');
-const {insertBeer, getBeers, deleteBeer, updateBeer,/* getBeer*/} = require('./database/beers');
+const {insertBeer, getBeers, delBeer, updateBeer, getBeer} = require('./database/beers');
 
 // Définition de l'app express
 const app = express();
@@ -23,45 +23,34 @@ app.use(morgan('combined'));
 
 // on retourne tte la table 'beer' via cette requete sur /
 app.get('/', async (req, res) => {
-  res.send(await getBeers());
+  await getBeers(res);
 });
 
-var idbeer;
-
-// On retourne une seule bière
+// route vers toutes les bières
 app.route('/beer/:idbeer')
   .get( async function(req,res) {
-    var idbeer = req.params.idbeer;
-    var final = await getBeer(idbeer);
-    console.log(final);
-      //res.send(JSON.stringify(rows[0]));
+    // Recherche d'une bière par son ID
+    await getBeer(req.params.idbeer, res);
   })
   .delete(async function(req,res) {
-    res.send('Delete : beer')
-  });
+    // Suppression d'une bière depuis son ID
+    await delBeer(req.params.idbeer, res);
+  //  res.send('Delete : beer');
+  })
+  .put (async function (req, res) {
+    // Modification d'une bière depuis son ID
+    const updatedBeer = req.body;
+	  await updateBeer(req.params.idbeer, updatedBeer);
+    res.send('Bière n°'+req.params.idbeer+' modifiée. ');
+  }) ;
 
-
-/*
-app.post('/', async (req, res) => {
-  const newBeer = req.body;
-  await insertBeer(newBeer);
-  res.send({ message: 'New beer inserted.' });
+// ajout d'une bière
+  app.post('/beer', async (req, res) => {
+    // Ajout d'une nouvelle bière
+	   const newBeer = req.body;
+	   await insertBeer(newBeer);
+	   res.send({message: 'Bière ajoutée.'});
 });
-
-// endpoint to delete an beer
-app.delete('/:id', async (req, res) => {
-  await deleteBeer(req.params.id);
-  res.send({ message: 'Beer removed.' });
-});
-
-// endpoint to update an beer
-app.put('/:id', async (req, res) => {
-  const updatedBeer = req.body;
-  await updateBeer(req.params.id, updatedBeer);
-  res.send({ message: 'Beer updated.' });
-});*/
-
-
 
 // Démarrage du serveur
 startDatabase().then(async () => {

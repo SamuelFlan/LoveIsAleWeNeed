@@ -13,30 +13,37 @@ async function insertBeer(beerName, idBeerType) {
     });
 }
 
+/*
 async function getBeers() {
   const database = await getDatabase();
-  database.query('SELECT * FROM ' + collectionName,  function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-    //res.send(JSON.stringify(result[0]));
-    });
+  database.query('SELECT * FROM ' + collectionName, function (err, result)  {
+     if (err) throw err;
+     return(JSON.stringify(result[0]));
+   });
+}*/
+
+async function getBeers( res ) { // get all beers
+  const database = await getDatabase();
+  return await database.query('SELECT * FROM '+collectionName,  function (error, results) {
+  res.send( results ) ;
+});
 }
 
-
-async function getBeer(BeerId) {
+async function getBeer(BeerId, res) { // get one beer by its ID
   const database = await getDatabase();
   console.log(BeerId)
   database.query('SELECT * FROM ' + collectionName + ' WHERE beer_id = ' + BeerId,  function (err, result, fields) {
     if (err) throw err;
-    console.log(result);
+    //console.log(result);
+    res.send( result);
     });
 }
 
-async function deleteBeer(id) {
+async function delBeer(BeerId, res) { // delete one beer by its id
   const database = await getDatabase();
-  database.query('DELETE FROM ' + collectionName + ' WHERE beer_id = ' + id,  function (err, result, fields) {
+  database.query('DELETE FROM ' + collectionName + ' WHERE beer_id = ' + BeerId,  function (err, result, fields) {
     if (err) throw err;
-    console.log("Bière numéro " + id + " supprimée.");
+    res.send("Bière numéro " + BeerId + " supprimée.");
   });
 }
 
@@ -56,7 +63,7 @@ async function updateBeer(id, beer) {
 module.exports = {
   insertBeer,
   getBeers,
-  deleteBeer,
+  delBeer,
   updateBeer,
   getBeer,
 };
