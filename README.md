@@ -11,10 +11,11 @@ To run the API, you have several possibilities: place your node.js command promp
 - "node src": a normal Running
 
 # Testing the API
-To test the API, you can send HTTP request (like get, post, update...) to the following paths:
-- localhost:3001/ : the root. It will return all the beers.
+To test the API, you can send HTTP request (like get, post, put, delete) to the following paths:
+- get localhost:3001/ (the root) will return all the beers.
+- get, put, delete localhost:3001/beers/:idbeer will return / update / delete a beer with the idbeer as an id. 
 
 A full documentation will be available in the future.
 
 # License
-This API is under no Licence: feel free to use it as long as you credit this repository + the authors!
+This API is under the Mozilla Public License 2.0 . Learn more here : https://www.mozilla.org/en-US/MPL/2.0/
