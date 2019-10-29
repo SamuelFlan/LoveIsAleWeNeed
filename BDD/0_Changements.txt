@@ -1,0 +1,15 @@
+Changements effectués : 
+
+1) Suppression de certaines colonnes directement sur le fichier CSV. (Colonnes inintéressantes)
+
+2) Table BEERS : Suppression de lignes "faussées" --> Ligne contenant de mauvais ID et n'ayant aucune autres données,
+
+3) Table BEERS : Suppression des doublons directement sur les fichiers CSV. Identification des doublons grâce à la requête suivante :
+
+SELECT   COUNT(*) AS Nombre_doublon, ID_BEER
+FROM     BEERS
+GROUP BY ID_BEER
+HAVING   COUNT(*) > 1
+
+4) Nombre total de lignes : 5901 (le fichierr CSV en contenait 5973 à la base sans compter la ligne des champs)
+

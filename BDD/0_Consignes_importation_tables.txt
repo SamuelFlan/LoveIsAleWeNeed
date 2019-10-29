@@ -1,0 +1,17 @@
+Pour récupérer les données :
+
+1) Créer une base de données dans phpmyadmin.
+
+2) Copier coller dans le SQL de la base le fichier 1_SCRIPT_Table_STYLES.txt
+
+3) Importer dans la table STYLES le fichier 1_CSV_Table_STYLES.csv (ignorer la première ligne, Format : CSV, Colonnes séparées par ;)
+
+4) Copier coller dans le SQL de la base le fichier 2_SCRIPT_Table_CATEGORIES.txt
+
+5) Importer dans la table CATEGORIES le fichier 2_CSV_Table_CATEGORIES.csv
+
+6) Copier coller dans le SQL de la base le fichier 3_SCRIPT_Table_BEERS.txt
+
+7) Importer dans la table BEERS le fichier 3_CSV_Table_BEERS.csv
+
+8) Normalement tout fonctionne. Si l'on souhaite supprimer une colonne nous pouvons toujours le faire directement sur phpmyadmin.
