@@ -2,9 +2,9 @@
 // Accès aux bières
 
 const {getDatabase} = require('./mysql');
-const beerDAO = require('./DAO/beersDAO')
+const beer = require('./DAO/beers')
 
-const collectionName = beerDAO.table;
+const collectionName = beer.table;
 const {ObjectID} = require('mysql');
 const {select, selectWhereLike, selectWhereValue, insertInto, deleteFrom} = require ('./database_methods');
 
@@ -13,13 +13,13 @@ const {select, selectWhereLike, selectWhereValue, insertInto, deleteFrom} = requ
 async function getBeers( res ) {  select(collectionName, '*', res); }
 
 // Get one beer with its ID
-async function getBeer(BeerId, res) { selectWhereValue(collectionName, '*', beerDAO.beer_id, BeerId, res); }
+async function getBeer(BeerId, res) { selectWhereValue(collectionName, '*', beer.beer_id, BeerId, res); }
 
 // Get one beer with its name / a part of its name
-async function getBeerName(BeerName, res) { selectWhereLike(collectionName, '*', beerDAO.beer_name, '\'%' + BeerName + '%\'', res ); }
+async function getBeerName(BeerName, res) { selectWhereLike(collectionName, '*', beer.beer_name, '\'%' + BeerName + '%\'', res ); }
 
 // Delete one beer. Needs id_beer
-async function delBeer(BeerId, res) { deleteFrom(collectionName, beerDAO.beer_id, BeerId, res); }
+async function delBeer(BeerId, res) { deleteFrom(collectionName, beer.beer_id, BeerId, res); }
 
 
 /* /!\ : pas encore mis à jour avec les nouvelles méthodes insertInto & updateOne */

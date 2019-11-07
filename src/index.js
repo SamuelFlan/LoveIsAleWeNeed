@@ -9,11 +9,10 @@ const morgan = require('morgan'); // librairie permettant d'ajouter des logins a
 
 // Dépendances relatives à la bdd
 const {startDatabase} = require('./database/mysql');
-const {insertBeer, getBeers, delBeer, updateBeer, getBeer, getBeerName} = require('./database/beers');
+const {insertBeer, getBeers, delBeer, updateBeer, getBeer, getBeerName} = require('./database/beers_DAO');
 
 // Définition de l'app express
 const app = express();
-
 
 // On ajoute les Dépendances
 app.use(helmet());
@@ -32,25 +31,20 @@ app.get('/beer/name/:beername', async (req, res) => {
 
 // route vers toutes les bières
 app.route('/beer/:idbeer')
-  .get( async function(req,res) {
-    // Recherche d'une bière par son ID
+  .get( async function(req,res) {// Recherche d'une bière par son ID
     await getBeer(req.params.idbeer, res);
   })
-  .delete(async function(req,res) {
-    // Suppression d'une bière depuis son ID
+  .delete(async function(req,res) {// Suppression d'une bière depuis son ID
     await delBeer(req.params.idbeer, res);
-  //  res.send('Delete : beer');
   })
-  .put (async function (req, res) {
-    // Modification d'une bière depuis son ID
+  .put (async function (req, res) {// Modification d'une bière depuis son ID
     const updatedBeer = req.body;
 	  await updateBeer(req.params.idbeer, updatedBeer);
     res.send('Bière n°'+req.params.idbeer+' modifiée. ');
   }) ;
 
 // ajout d'une bière
-  app.post('/beer', async (req, res) => {
-    // Ajout d'une nouvelle bière
+  app.post('/beer', async (req, res) => {// Ajout d'une nouvelle bière
 	   const newBeer = req.body;
 	   await insertBeer(newBeer);
 	   res.send({message: 'Bière ajoutée.'});

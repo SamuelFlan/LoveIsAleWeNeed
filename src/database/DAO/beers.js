@@ -1,5 +1,5 @@
 
-var beersDAO = {
+var beers = {
   table : "beers",
 	beer_id	:	"id_beer",
 	beer_name	:	"name",
@@ -8,4 +8,4 @@ var beersDAO = {
   beer_alcohol : "alcohol_by_volume"
 };
 
-module.exports = beersDAO;
+module.exports = beers;
