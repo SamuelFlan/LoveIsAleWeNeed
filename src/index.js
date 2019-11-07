@@ -9,7 +9,7 @@ const morgan = require('morgan'); // librairie permettant d'ajouter des logins a
 
 // Dépendances relatives à la bdd
 const {startDatabase} = require('./database/mysql');
-const {insertBeer, getBeers, delBeer, updateBeer, getBeer} = require('./database/beers');
+const {insertBeer, getBeers, delBeer, updateBeer, getBeer, getBeerName} = require('./database/beers');
 
 // Définition de l'app express
 const app = express();
@@ -24,6 +24,10 @@ app.use(morgan('combined'));
 // on retourne tte la table 'beer' via cette requete sur /
 app.get('/', async (req, res) => {
   await getBeers(res);
+});
+
+app.get('/beer/name/:beername', async (req, res) => {
+  await getBeerName(req.params.beername, res);
 });
 
 // route vers toutes les bières

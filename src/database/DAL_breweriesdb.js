@@ -4,7 +4,7 @@ var databaseCredentials = {
 	host	:	"localhost",
 	user	:	"root",
 	password:	"root",
-	database: 	"breweries"
+	database: 	"beerdb"
 };
 
 
