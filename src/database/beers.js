@@ -6,52 +6,29 @@ const beerDAO = require('./DAO/beersDAO')
 
 const collectionName = beerDAO.table;
 const {ObjectID} = require('mysql');
+const {select, selectWhereLike, selectWhereValue, insertInto, deleteFrom} = require ('./database_methods');
+
 
 // Get all beers
-async function getBeers( res ) {
-  const database = await getDatabase();
-  return await database.query('SELECT * FROM '+collectionName,  function (error, results) {
-  res.send( results ) ;
-});
-}
+async function getBeers( res ) {  select(collectionName, '*', res); }
 
 // Get one beer with its ID
-async function getBeer(BeerId, res) {
-  const database = await getDatabase();
-  console.log(BeerId)
-  database.query('SELECT * FROM ' + collectionName + ' WHERE '+ beerDAO.beer_id +' = ' + BeerId,  function (err, result, fields) {
-    if (err) throw err;
-    //console.log(result);
-    res.send( result);
-    });
-}
+async function getBeer(BeerId, res) { selectWhereValue(collectionName, '*', beerDAO.beer_id, BeerId, res); }
 
-// Get one beer with its name
-async function getBeerName(BeerName, res) {
-  const database = await getDatabase();
-  console.log(BeerName);
-  database.query('SELECT * FROM ' + collectionName + ' WHERE '+ beerDAO.beer_name +' LIKE \'%' + BeerName+'%\'',  function (err, result, fields) {
-    if (err) throw err;
-    //console.log(result);
-    res.send( result);
-  });
-}
+// Get one beer with its name / a part of its name
+async function getBeerName(BeerName, res) { selectWhereLike(collectionName, '*', beerDAO.beer_name, '\'%' + BeerName + '%\'', res ); }
 
+// Delete one beer. Needs id_beer
+async function delBeer(BeerId, res) { deleteFrom(collectionName, beerDAO.beer_id, BeerId, res); }
+
+
+/* /!\ : pas encore mis à jour avec les nouvelles méthodes insertInto & updateOne */
 // Insert one beer
 async function insertBeer(beerName, idBeerType) {
   const database = await getDatabase();
   database.query('INSERT INTO '+collectionName+' VALUES',  function (err, result, fields) {
     if (err) throw err;
     });
-}
-
-// Delete one beer. Needs id_beer
-async function delBeer(BeerId, res) {
-  const database = await getDatabase();
-  database.query('DELETE FROM ' + collectionName + 'WHERE '+ beerDAO.beer_id +' =  ' + BeerId,  function (err, result, fields) {
-    if (err) throw err;
-    res.send("Bière numéro " + BeerId + " supprimée.");
-  });
 }
 
 // Update a beer
