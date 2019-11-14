@@ -1,8 +1,8 @@
 
 var category = {
-  table : "categories",
-	category_id	:	"id_categorie",
-	category_name	:	"categorie_name",
+  table : "CATEGORIES",
+	category_id	:	"ID_CATEGORIE",
+	category_name	:	"CATEGORIE_NAME",
 
 };
 

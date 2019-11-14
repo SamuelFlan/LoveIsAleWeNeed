@@ -1,11 +1,11 @@
 
 var beers = {
-  table : "beers",
-	beer_id	:	"id_beer",
-	beer_name	:	"name",
-  beer_id_category : "id_categorie",
-  beer_id_style : "id_style",
-  beer_alcohol : "alcohol_by_volume"
+  table : "BEERS",
+	beer_id	:	"ID_BEER",
+	beer_name	:	"NAME",
+  beer_id_category : "ID_CATEGORIE",
+  beer_id_style : "ID_STYLE",
+  beer_alcohol : "ALCOHOL_BY_VOLUME"
 };
 
 module.exports = beers;

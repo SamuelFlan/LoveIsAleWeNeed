@@ -1,8 +1,8 @@
 
 var style = {
-  table : "styles",
-	style_id	:	"id_style",
-	style_name	:	"style_name",
+  table : "STYLES",
+	style_id	:	"ID_STYLE",
+	style_name	:	"STYLE_NAME",
 
 };
 
