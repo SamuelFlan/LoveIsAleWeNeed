@@ -17,6 +17,8 @@ let jwt = require('jsonwebtoken');
 let config = require('./server/config');
 let middleware = require('./server/middleware');
 
+
+//https://medium.com/dev-bits/a-guide-for-adding-jwt-token-based-authentication-to-your-single-page-nodejs-applications-c403f7cf04f4
 class HandlerGenerator {
   login (req, res) {
     let username = req.body.username;
@@ -86,7 +88,7 @@ function main () {
 
   // route vers toutes les bières : check du token pour les opérations délicates
   app.route('/beer/:idbeer')
-    .get(middleware.checkToken, handlers.index, async function(req,res) {// Recherche d'une bière par son ID
+    .get(async function(req,res) {// Recherche d'une bière par son ID
       await getBeer(req.params.idbeer, res);
     })
     .delete(middleware.checkToken, handlers.index, async function(req,res) {// Suppression d'une bière depuis son ID
